@@ -88,3 +88,19 @@ deploy:
   # engine: 'mathjax' #'mathjax' # or 'katex'
 pandoc:
   mathEngine: mathjax
+
+algolia:
+  appId: "CBG68KFSTU"
+  apiKey: "56dea5b1cb40f8bbd368a9d4326f2ba9"
+  adminApiKey: "7bad4d267b0cba5ca3b2977477a3773d"
+  chunkSize: 5000
+  indexName: "my-hexo-blog"
+  fields:
+    - excerpt
+    - excerpt:strip
+    - gallery
+    - permalink
+    - photos
+    - slug
+    - tags
+    - title
