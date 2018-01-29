@@ -134,4 +134,100 @@ $$
 
 ## 实现
 
-先挖坑，预计今天会补。
+有点丑，不过能用。(需开启C++11)
+
+```c++
+#include<iostream>
+#include<algorithm>
+#include<functional>
+#include<cmath>
+#include<complex>
+using namespace std;
+typedef double db;
+typedef function<double(double)> func;
+typedef complex<db> C;
+const db eps=1e-10;
+const int N=1e6;
+db A,B; // 积分上下界
+struct poly_t {
+	db a[32];int deg;
+	db operator()(db x) const{
+		db ret=0;
+		for(int i=deg;i>=0;i--) {
+			ret=ret*x+a[i];
+		}
+		return ret;
+	}
+	void init() {
+		deg=0;fill(a,a+32,0);
+	}
+	poly_t& operator += (const poly_t &o) {
+		deg=max(deg,o.deg);
+		for(int i=0;i<=deg;i++)
+			a[i]+=o.a[i];
+		return *this;
+	}
+	poly_t& operator *= (db k) {
+		for(int i=0;i<=deg;i++) a[i]*=k;
+		return *this;
+	}
+	poly_t& operator /= (db k) {
+		*this*=1.0/k;
+		return *this;
+	}
+	poly_t& operator -= (const poly_t &o) {
+		deg=max(deg,o.deg);
+		for(int i=0;i<=deg;i++)
+			a[i]-=o.a[i];
+		return *this;
+	}
+	poly_t() {init();}
+	void Print() {
+		for(int i=0;i<=deg;i++)
+		printf("%lf ",a[i]);puts("");
+	}
+};
+db calc(db l,db r,const func& f) {
+	return (r-l)/6*(f(l)+4*f((l+r)/2)+f(r));
+}
+db Simpson(db l,db r,const func& f) {
+	db mid=(l+r)/2,
+	left=calc(l,mid,f),
+	right=calc(mid,r,f),
+	whole=calc(l,r,f);
+	if(fabs(left+right-whole)>eps)
+	return Simpson(l,mid,f)+Simpson(mid,r,f);
+	else return whole;
+}
+db InnerProduct(const func& u,const func& v) {
+	return Simpson(A,B,[u,v](db x){return u(x)*v(x);});
+}
+poly_t base[6];
+int main() {
+	int i,j,k;
+	const db Pi=3.1415926535897932384626433832795;
+	db alpha;
+	poly_t tt;
+	A=-Pi;B=Pi;
+	for(i=0;i<6;i++)
+		base[i].a[i]=1,base[i].deg=i;
+	for(i=0;i<6;i++) {
+		for(j=0;j<i;j++) {
+			tt=base[j];
+			alpha=InnerProduct(tt,base[i]);
+			tt*=alpha;
+			base[i]-=tt;
+		}
+		base[i]/=sqrt(InnerProduct(base[i],base[i]));
+	}
+	poly_t ans;
+	func origin=[](db x){return sin(x);};
+	for(i=0;i<6;i++) {
+		tt=base[i];
+		alpha=InnerProduct(origin,tt);
+		tt*=alpha;
+		ans+=tt;
+	}
+	ans.Print();
+}
+```
