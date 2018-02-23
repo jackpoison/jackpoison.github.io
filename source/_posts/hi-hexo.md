@@ -1,5 +1,6 @@
 ---
 title: Hi Hexo
+date: 2018-01-14 00:00:00
 ---
 
 今天用[Hexo](https://hexo.io/)搭了个博客，感觉挺好看的。
