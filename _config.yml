@@ -104,3 +104,8 @@ algolia:
     - slug
     - tags
     - title
+
+sitemap:
+  path: sitemap.xml
+  tag: false
+  category: false
