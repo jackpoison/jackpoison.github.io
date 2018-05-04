@@ -1,0 +1,819 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Jack&#39;s Little Ship">
+    <title>函数在给定区间上多项式近似的一种求法 - Jack&#39;s Little Ship</title>
+    <meta name="author" content="Jackpoison">
+    
+    
+        <link rel="icon" href="https://jackpison.tk/assets/images/hp_deathhallows.png">
+    
+    
+    <meta name="description" content="引子 这个方法是原来乱翻线代书(Linear Agebra Done Right)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， Simpson 自适应积分也会了。闲来无事填个坑。">
+<meta name="keywords" content="数学,线性代数,多项式">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="函数在给定区间上多项式近似的一种求法">
+<meta property="og:url" content="https://jackpison.tk/Mathematics/polynomial-approximation/index.html">
+<meta property="og:site_name" content="Jack&#39;s Little Ship">
+<meta property="og:description" content="引子 这个方法是原来乱翻线代书(Linear Agebra Done Right)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， Simpson 自适应积分也会了。闲来无事填个坑。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://jackpison.tk/assets/images/approximation-graph.png">
+<meta property="og:updated_time" content="2018-05-04T01:11:50.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数在给定区间上多项式近似的一种求法">
+<meta name="twitter:description" content="引子 这个方法是原来乱翻线代书(Linear Agebra Done Right)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， Simpson 自适应积分也会了。闲来无事填个坑。">
+<meta name="twitter:image" content="https://jackpison.tk/assets/images/approximation-graph.png">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://jackpison.tk/assets/images/stalin.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+	
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Jack&#39;s Little Ship</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Jackpoison</h4>
+                
+                    <h5 class="sidebar-profile-bio">OIer....</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/jackpoison" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            函数在给定区间上多项式近似的一种求法
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-01-20T10:52:16+08:00">
+	
+		    Jan 20, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Mathematics/">Mathematics</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h2 id="引子">引子</h2>
+<p>这个方法是原来乱翻线代书(<em>Linear Agebra Done Right</em>)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， <em>Simpson</em> 自适应积分也会了。闲来无事填个坑。</p>
+<a id="more"></a>
+<h2 id="定义">定义</h2>
+<ul>
+<li><span class="math inline">\(V\)</span>为所有<span class="math inline">\(f(x):\mathbb{R}\to\mathbb{R}\)</span>组成的集合</li>
+<li>对<span class="math inline">\(u,v\in V\)</span>，定义其内积(<em>Inner Product</em>)为</li>
+</ul>
+<p><span class="math display">\[
+&lt;u,v&gt;=\int_a^b{u(x)v(x)dx}
+\]</span></p>
+<blockquote>
+<p><span class="math inline">\((a,b)\)</span>就是给定的区间啦</p>
+</blockquote>
+<ul>
+<li>对<span class="math inline">\(u\in V\)</span>，定义其模(<em>Norm</em>)为</li>
+</ul>
+<p><span class="math display">\[
+||u||=\sqrt{&lt;u,u&gt;}
+\]</span></p>
+<ul>
+<li>对于<span class="math inline">\(V\)</span>中一组向量(也就是元素)<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>，我们称它为一组基，当且仅当，<span class="math inline">\(\forall v\in V\)</span>，存在唯一的<span class="math inline">\(a_1,a_2,...,a_n\in R\)</span>，使得</li>
+</ul>
+<p><span class="math display">\[
+v=a_1u_1+a_2u_2+\ldots+a_nu_n
+\]</span></p>
+<ul>
+<li>对于一组基<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>，我们称它为正交的，当且仅当</li>
+</ul>
+<p><span class="math display">\[
+&lt;u_i,u_j&gt;=0,\forall i,j \in\{1,\ldots,n\}
+\]</span></p>
+<ul>
+<li>对于一组基<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>，我们称它为单位基，当且仅当</li>
+</ul>
+<p><span class="math display">\[
+&lt;u_i,u_i&gt;=1,\forall i \in \{1,\ldots,n\}
+\]</span></p>
+<h2 id="性质">性质</h2>
+<ul>
+<li>内积<span class="math inline">\(&lt;u,v&gt;=\int_a^bu(x)v(x)dx\)</span>，<span class="math inline">\(a&lt;b\)</span>满足
+<ol type="1">
+<li><p>交换律:</p>
+<p><span class="math inline">\(&lt;u,v&gt;=&lt;v,u&gt;\)</span></p></li>
+<li><p>线性:</p>
+<p><span class="math inline">\(&lt;u+v,w&gt;=&lt;u,w&gt;+&lt;v,u&gt;\)</span></p>
+<p><span class="math inline">\(&lt;ku,v&gt;=k&lt;u,v&gt;, k\in \mathbb{R}\)</span></p></li>
+<li><p>(非负性?忘了怎么说了):</p>
+<p><span class="math inline">\(&lt;u,u&gt;\ge 0\)</span></p>
+<p>(因而<span class="math inline">\(||u||\)</span>总是有意义的)</p></li>
+</ol></li>
+<li>若<span class="math inline">\((u_1,u_2,...,u_n)\)</span>为一组单位正交基，则<span class="math inline">\(\forall v \in V\)</span>，有</li>
+</ul>
+<p><span class="math display">\[
+v=&lt;v,u_1&gt;u_1+&lt;v,u_2&gt;u_2+\cdots+&lt;v,u_n&gt;u_n
+\]</span></p>
+<p>Proof:</p>
+<p>由<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>为一组单位正交基，设<span class="math inline">\(v=a_1u_1+a_2u_2+\cdots+a_nu_n\)</span>，两边同时与<span class="math inline">\(u_i\)</span>内积即有</p>
+<p><span class="math display">\[
+&lt;v,u_i&gt;=&lt;a_1u_1,u_i&gt;+&lt;a_2u_2,u_i&gt;+\cdots+&lt;a_nu_n,u_i&gt;
+\]</span> <span class="math display">\[
+=a_1&lt;u_1,u_i&gt;+a_2&lt;u_2,u_i&gt;+\cdots+a_n&lt;u_n,u_i&gt;=a_i
+\]</span></p>
+<h2 id="应用">应用</h2>
+<p>假如<span class="math inline">\((x^0,x^1,x^2,...)\)</span>为<span class="math inline">\(V\)</span>的一组基的话，我们就可以把任何一个函数写成<span class="math inline">\(\sum{a_ix^i}\)</span>的形式了，诶诶诶，这不就是我们想干的事嘛，用多项式来表示函数。</p>
+<p>那么问题来了，我们该怎么求那个系数<span class="math inline">\(a_i\)</span>？</p>
+<p>不妨假设，我们求出了一组单位正交基<span class="math inline">\((u_1,u_2,\ldots)\)</span>，对其中每个 <span class="math inline">\(u_i\)</span>，它表示成<span class="math inline">\(\sum{a_ix^i}\)</span>形式的系数都是已知的，那我们岂不是可以先求出用<span class="math inline">\((u_i)\)</span>表示的系数(利用刚才提到的内积)，再回代就可以得到用(<span class="math inline">\(x_i\)</span>)表示的系数。</p>
+<p>那么我们只需要求正交基即可。</p>
+<p>下面就直接给出算法了。</p>
+<p>设已经有了一组单位正交基<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>，<span class="math inline">\(v\)</span>不能被<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>表示，设</p>
+<p><span class="math display">\[
+t=v-&lt;v,u_1&gt;-&lt;v,u_2&gt;-\cdots-&lt;v,u_n&gt;
+\]</span></p>
+<p>则</p>
+<p><span class="math display">\[
+u_{n+1}=\frac{t}{||t||}
+\]</span></p>
+<p><span class="math inline">\((u_1,u_2,\ldots,u_n,u_{n+1})\)</span>的单位性与正交性很好验证。而且原来<span class="math inline">\((u_1,u_2,\ldots,u_n,v)\)</span>能表示出来的元素<span class="math inline">\((u_1,u_2,\ldots,u_n)\)</span>都能表示。</p>
+<p>所以就完啦～</p>
+<h2 id="例子">例子</h2>
+<p><span class="math display">\[
+f(x)=sin(x)
+\]</span></p>
+<p>与</p>
+<p><span class="math display">\[
+g(x)=0.987862x-0.155271x^3+0.00564312x^5
+\]</span></p>
+<p>的函数图像画在一起,可以看到两者在<span class="math inline">\((-\pi,\pi)\)</span>上十分重合。</p>
+<figure>
+<img src="/assets/images/approximation-graph.png" alt="粉色为f(x)，绿色为g(x)"><figcaption>粉色为<span class="math inline">\(f(x)\)</span>，绿色为<span class="math inline">\(g(x)\)</span></figcaption>
+</figure>
+<p>我们仅需用很少的项就可以实现较高的精度。(比泰勒展开不知道高到哪里去了)</p>
+<h2 id="实现">实现</h2>
+<p>有点丑，不过能用。(需开启C++11)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;complex&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> db;</span><br><span class="line"><span class="keyword">typedef</span> function&lt;<span class="keyword">double</span>(<span class="keyword">double</span>)&gt; func;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">complex</span>&lt;db&gt; C;</span><br><span class="line"><span class="keyword">const</span> db eps=<span class="number">1e-10</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1e6</span>;</span><br><span class="line">db A,B; <span class="comment">// 积分上下界</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">poly_t</span> &#123;</span></span><br><span class="line">	db a[<span class="number">32</span>];<span class="keyword">int</span> deg;</span><br><span class="line">	<span class="function">db <span class="title">operator</span><span class="params">()</span><span class="params">(db x)</span> <span class="keyword">const</span></span>&#123;</span><br><span class="line">		db ret=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=deg;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">			ret=ret*x+a[i];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ret;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		deg=<span class="number">0</span>;fill(a,a+<span class="number">32</span>,<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span>&amp; <span class="keyword">operator</span> += (<span class="keyword">const</span> <span class="keyword">poly_t</span> &amp;o) &#123;</span><br><span class="line">		deg=max(deg,o.deg);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=deg;i++)</span><br><span class="line">			a[i]+=o.a[i];</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span>&amp; <span class="keyword">operator</span> *= (db k) &#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=deg;i++) a[i]*=k;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span>&amp; <span class="keyword">operator</span> /= (db k) &#123;</span><br><span class="line">		*<span class="keyword">this</span>*=<span class="number">1.0</span>/k;</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span>&amp; <span class="keyword">operator</span> -= (<span class="keyword">const</span> <span class="keyword">poly_t</span> &amp;o) &#123;</span><br><span class="line">		deg=max(deg,o.deg);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=deg;i++)</span><br><span class="line">			a[i]-=o.a[i];</span><br><span class="line">		<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span>() &#123;init();&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">Print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=deg;i++)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lf "</span>,a[i]);<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">db <span class="title">calc</span><span class="params">(db l,db r,<span class="keyword">const</span> func&amp; f)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (r-l)/<span class="number">6</span>*(f(l)+<span class="number">4</span>*f((l+r)/<span class="number">2</span>)+f(r));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">db <span class="title">Simpson</span><span class="params">(db l,db r,<span class="keyword">const</span> func&amp; f)</span> </span>&#123;</span><br><span class="line">	db mid=(l+r)/<span class="number">2</span>,</span><br><span class="line">	left=calc(l,mid,f),</span><br><span class="line">	right=calc(mid,r,f),</span><br><span class="line">	whole=calc(l,r,f);</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">fabs</span>(left+right-whole)&gt;eps)</span><br><span class="line">	<span class="keyword">return</span> Simpson(l,mid,f)+Simpson(mid,r,f);</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">return</span> whole;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">db <span class="title">InnerProduct</span><span class="params">(<span class="keyword">const</span> func&amp; u,<span class="keyword">const</span> func&amp; v)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> Simpson(A,B,[u,v](db x)&#123;<span class="keyword">return</span> u(x)*v(x);&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">poly_t</span> base[<span class="number">6</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i,j,k;</span><br><span class="line">	<span class="keyword">const</span> db Pi=<span class="number">3.1415926535897932384626433832795</span>;</span><br><span class="line">	db alpha;</span><br><span class="line">	<span class="keyword">poly_t</span> tt;</span><br><span class="line">	A=-Pi;B=Pi;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)</span><br><span class="line">		base[i].a[i]=<span class="number">1</span>,base[i].deg=i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;i;j++) &#123;</span><br><span class="line">			tt=base[j];</span><br><span class="line">			alpha=InnerProduct(tt,base[i]);</span><br><span class="line">			tt*=alpha;</span><br><span class="line">			base[i]-=tt;</span><br><span class="line">		&#125;</span><br><span class="line">		base[i]/=<span class="built_in">sqrt</span>(InnerProduct(base[i],base[i]));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">poly_t</span> ans;</span><br><span class="line">	func origin=[](db x)&#123;<span class="keyword">return</span> <span class="built_in">sin</span>(x);&#125;;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++) &#123;</span><br><span class="line">		tt=base[i];</span><br><span class="line">		alpha=InnerProduct(origin,tt);</span><br><span class="line">		tt*=alpha;</span><br><span class="line">		ans+=tt;</span><br><span class="line">	&#125;</span><br><span class="line">	ans.Print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/多项式/">多项式</a> <a class="tag tag--primary tag--small t-link" href="/tags/数学/">数学</a> <a class="tag tag--primary tag--small t-link" href="/tags/线性代数/">线性代数</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Tour/PKU-WC/" data-tooltip="PKU-WC" aria-label="PREVIOUS: PKU-WC">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/uncategorized/hi-hexo/" data-tooltip="Hi Hexo" aria-label="NEXT: Hi Hexo">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/polynomial-approximation/&amp;title=函数在给定区间上多项式近似的一种求法" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy;
+        2018 Jackpoison. All Rights Reserved.
+    </span>
+</footer>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Tour/PKU-WC/" data-tooltip="PKU-WC" aria-label="PREVIOUS: PKU-WC">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/uncategorized/hi-hexo/" data-tooltip="Hi Hexo" aria-label="NEXT: Hi Hexo">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/polynomial-approximation/&amp;title=函数在给定区间上多项式近似的一种求法" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/polynomial-approximation/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/polynomial-approximation/">
+                    <i class="fa fa-weibo" aria-hidden="true"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/polynomial-approximation/&amp;title=函数在给定区间上多项式近似的一种求法">
+                    <i class="fa fa-qq" aria-hidden="true"></i><span>Share on QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/polynomial-approximation/">
+                    <i class="fa fa-star" aria-hidden="true"></i><span>Share on Qzone</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/polynomial-approximation/">
+                    <i class="fa fa-renren" aria-hidden="true"></i><span>Share on Renren</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Jackpoison</h4>
+        
+            <div id="about-card-bio">OIer....</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                never cool, never cold
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chongqing, China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/shell-necklace-solution/">
+                            <h3 class="media-heading">NKOJ 3933 【贝壳串】 题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 13, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题目<a href="http://oi.nks.edu.cn/zh/Problem/Details/3933" target="_blank" rel="noopener">在此</a></p>
+<p>给定每种长度的贝壳数量<span class="math inline">\(A(i)\)</span>，求长度为<span class="math inline">\(n\)</span>的链的种数。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/uncategorized/hi-hexo/">
+                            <h3 class="media-heading">Hi Hexo</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 14, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/polynomial-approximation/">
+                            <h3 class="media-heading">函数在给定区间上多项式近似的一种求法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="引子">引子</h2>
+<p>这个方法是原来乱翻线代书(<em>Linear Agebra Done Right</em>)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， <em>Simpson</em> 自适应积分也会了。闲来无事填个坑。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Tour/PKU-WC/">
+                            <h3 class="media-heading">PKU-WC</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>PKU WC的游记</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/binomial-transform/">
+                            <h3 class="media-heading">二项式反演</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 22, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h1 id="反演概念">反演概念</h1>
+<p>对于序列<span class="math inline">\(\{f_n\},\{g_n\}\)</span>，我们可以找到一组关系，可以将<span class="math inline">\(\{f_n\}\)</span>与<span class="math inline">\(\{g_n\}\)</span>变换，这样的操作称为反演。</p>
+<p>即<span class="math inline">\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\)</span> <span class="math display">\[
+f_n=\sum^n_{i=0}{a_{n,i}g_i}
+\]</span></p>
+<p><span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}f_i
+\]</span></p>
+<p>两者等价。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                            <h3 class="media-heading">NKOJ4487【集合计数】题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 25, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题面在<a href="http://oi.nks.edu.cn/zh/Problem/Details/4487" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>一个有<span class="math inline">\(N\)</span>个元素的集合有<span class="math inline">\(2^N\)</span>个不同子集（包含空集），现在要在这<span class="math inline">\(2^N\)</span>个集合中取出若干集合（至少一个），使得它们的交集的元素个数为<span class="math inline">\(K\)</span>，求取法的方案数，答案模<span class="math inline">\(1000000007\)</span>。（是质数喔~）</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/generating-function/">
+                            <h3 class="media-heading">生成函数</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 8, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="定义">定义</h3>
+<blockquote>
+<p>对于数列<span class="math inline">\(\{f_n\}\)</span>，我们定义<span class="math inline">\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)</span>，并称<span class="math inline">\(\tilde F(x)\)</span>为数列<span class="math inline">\(\{f_n\}\)</span>的生成函数。</p>
+</blockquote>
+<p>定义就这么点。</p>
+<p>从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。</p>
+<p>但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来计数，求解数列等。</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-peofhqjkzcghmndknakluequy1y6owxdwpaqyju9ntl9zxnk7rdolb3rjjoj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('CBG68KFSTU', '56dea5b1cb40f8bbd368a9d4326f2ba9');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    </body>
+</html>

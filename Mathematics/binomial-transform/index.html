@@ -1,0 +1,855 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Jack&#39;s Little Ship">
+    <title>二项式反演 - Jack&#39;s Little Ship</title>
+    <meta name="author" content="Jackpoison">
+    
+    
+        <link rel="icon" href="https://jackpison.tk/assets/images/hp_deathhallows.png">
+    
+    
+    <meta name="description" content="反演概念 对于序列\(\{f_n\},\{g_n\}\)，我们可以找到一组关系，可以将\(\{f_n\}\)与\(\{g_n\}\)变换，这样的操作称为反演。 即\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\) \[ f_n=\sum^n_{i=0}{a_{n,i}g_i} \] \[ g_n=\sum^n_{i=0}b_{n,i}f_i \] 两者等价。">
+<meta name="keywords" content="二项式反演,数学">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="二项式反演">
+<meta property="og:url" content="https://jackpison.tk/Mathematics/binomial-transform/index.html">
+<meta property="og:site_name" content="Jack&#39;s Little Ship">
+<meta property="og:description" content="反演概念 对于序列\(\{f_n\},\{g_n\}\)，我们可以找到一组关系，可以将\(\{f_n\}\)与\(\{g_n\}\)变换，这样的操作称为反演。 即\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\) \[ f_n=\sum^n_{i=0}{a_{n,i}g_i} \] \[ g_n=\sum^n_{i=0}b_{n,i}f_i \] 两者等价。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-04T01:11:50.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二项式反演">
+<meta name="twitter:description" content="反演概念 对于序列\(\{f_n\},\{g_n\}\)，我们可以找到一组关系，可以将\(\{f_n\}\)与\(\{g_n\}\)变换，这样的操作称为反演。 即\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\) \[ f_n=\sum^n_{i=0}{a_{n,i}g_i} \] \[ g_n=\sum^n_{i=0}b_{n,i}f_i \] 两者等价。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://jackpison.tk/assets/images/stalin.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+	
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Jack&#39;s Little Ship</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Jackpoison</h4>
+                
+                    <h5 class="sidebar-profile-bio">OIer....</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/jackpoison" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            二项式反演
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-02-22T20:11:35+08:00">
+	
+		    Feb 22, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Mathematics/">Mathematics</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="反演概念">反演概念</h1>
+<p>对于序列<span class="math inline">\(\{f_n\},\{g_n\}\)</span>，我们可以找到一组关系，可以将<span class="math inline">\(\{f_n\}\)</span>与<span class="math inline">\(\{g_n\}\)</span>变换，这样的操作称为反演。</p>
+<p>即<span class="math inline">\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\)</span> <span class="math display">\[
+f_n=\sum^n_{i=0}{a_{n,i}g_i}
+\]</span></p>
+<p><span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}f_i
+\]</span></p>
+<p>两者等价。</p>
+<a id="more"></a>
+<p>这里的<span class="math inline">\(\{a_{n,i}\},\{b_{n,i}\}\)</span>我们是可以求出来的。</p>
+<p>首先将<span class="math inline">\(f_n\)</span>带入<span class="math inline">\(g_n\)</span>就有： <span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}\sum^i_{j=0}a_{i,j}g_j
+\]</span> 非常熟练地交换求和号后：</p>
+<p><span class="math display">\[
+g_n=\sum^n_{j=0}g_j\sum^n_{i=j}b_{n,i}a_{i,j}
+\]</span> 对于这个形式，我们非常想猜想： <span class="math display">\[
+\sum^n_{i=j}b_{n,i}a_{i,j}=[n==j]
+\]</span> 实际上，这也是<span class="math inline">\(\{a_{n,i}\},\{b_{n,i}\}\)</span>能构成反演的充要条件。</p>
+<p>证明暂略（<del>又在挖坑.jpg</del>）。</p>
+<h1 id="常用的反演举例">常用的反演举例</h1>
+<ul>
+<li><p><strong>Möbius 反演</strong> <span class="math display">\[
+\begin{eqnarray}
+a_{n,d} &amp;=&amp; [d|n]\\
+b_{n,d} &amp;=&amp; [d|n]\mu(\frac{n}{d})\\
+f(n) &amp;=&amp;\sum_{d|n}g(d)\\
+g(n) &amp;=&amp; \sum_{d|n}\mu(\frac{n}{d})f(d)
+\end{eqnarray}
+\]</span></p></li>
+<li><p><strong>二项式反演</strong></p>
+<p><span class="math display">\[
+\begin{eqnarray}
+a_{n,i}&amp;=&amp;(-1)^i\binom{n}{i}\\
+b_{n,i}&amp;=&amp;(-1)^i\binom{n}{i}\\
+f(n)&amp;=&amp;\sum_{i=0}(-1)^i\binom{n}{i}g(i)\\
+g(n)&amp;=&amp;\sum_{i=0}(-1)^i\binom{n}{i}f(i)
+\end{eqnarray}
+\]</span></p></li>
+</ul>
+<p>是不是很优美？</p>
+<p>但我们平时用的多为另一种形式。</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+a_{n,i}&amp;=&amp;\binom{n}{i}\\
+b_{n,i}&amp;=&amp;(-1)^{n-i}\binom{n}{i}\\
+f(n)&amp;=&amp;\sum_{i=0}\binom{n}{i}g(i)\\
+g(n)&amp;=&amp;\sum_{i=0}(-1)^{n-i}\binom{n}{i}f(i)
+\end{eqnarray}
+\]</span></p>
+<h1 id="二项式应用举例">二项式应用举例</h1>
+<ul>
+<li><p><strong>全错排问题</strong></p>
+<p>我们设<span class="math inline">\(n\)</span>个元素的全错排有<span class="math inline">\(f(n)\)</span>种。</p>
+<p>直接求全错排方案数不好求，我们考虑任意排列的方案数，显然有<span class="math inline">\(n!\)</span>种。</p>
+<p>枚举每种排列中的不动点数量，有 <span class="math display">\[
+n!=\sum^n_{i=0}\binom{n}{i}f(i)
+\]</span> 反演一下就可以得到 <span class="math display">\[
+f(n)=\sum^n_{i=0}(-1)^{n-i}\binom{n}{i}i!
+\]</span> 就可以啦。</p></li>
+<li><p><strong>恰用<span class="math inline">\(k\)</span>种颜色染色问题</strong></p>
+<p><span class="math inline">\(n\)</span>个格子排成一排，恰用<span class="math inline">\(k\)</span>种颜色给这<span class="math inline">\(n\)</span>个格子染色，相邻两个格子不共色，求方案数。</p>
+<p>设答案为<span class="math inline">\(f(n,k)\)</span>，先考虑放松条件，设不管“恰”的方案数为<span class="math inline">\(g(n,k)\)</span>，易知<span class="math inline">\(g(n,k)=k(k-1)^{n-1}\)</span>。</p>
+<p>枚举每种方案中“恰”用的颜色数，有 <span class="math display">\[
+g(n,k)=\sum^k_{i=0}\binom{k}{i}f(n,i)
+\]</span> 反演一下就可以得到 <span class="math display">\[
+f(n,k)=\sum^k_{i=0}(-1)^{k-i}\binom{k}{i}i(i-1)^{n-1}
+\]</span> Over~</p></li>
+</ul>
+<h1 id="一个excited例子">一个Excited例子</h1>
+<p>假如你有一个数列<span class="math inline">\(\{a_n\}\)</span>，它的通项是多项式，其次数最高项为<span class="math inline">\(n^d\)</span>，现在给你<span class="math inline">\(\{a_0,\ldots,a_d\}\)</span>，询问<span class="math inline">\(a_m\)</span>的值。</p>
+<p>这题用二项式反演的话，是可以做到<span class="math inline">\(O(d)\)</span>的！</p>
+<p>首先，我们可以发现，任意<span class="math inline">\(d\)</span>阶多项式都可以表示成<span class="math inline">\(\sum^d_{i=0}{\binom{n}{i}b_i}\)</span>的形式。</p>
+<p>这个结论想想是很显然的，<span class="math inline">\(\binom{n}{i}\)</span>是<span class="math inline">\(i\)</span>次多项式，如果按<span class="math inline">\(i\)</span>从<span class="math inline">\(d,d-1,\ldots,0\)</span>的方式来确定<span class="math inline">\(b_i\)</span>，每个<span class="math inline">\(b_i\)</span>都是能唯一确定的。</p>
+<p>有了这个结论，我们就可以考虑将<span class="math inline">\(a_n\)</span>表示成如下形式： <span class="math display">\[
+  a_n=\sum^n_{i=0}\binom{n}{i}b_i
+\]</span> 其中高次项(<span class="math inline">\(b_k,k&gt;d\)</span>)补零。</p>
+<p>运用二项式反演，我们可以得到： <span class="math display">\[
+  b_n=\sum^n_{i=0}(-1)^{n-i}\binom{n}{i}a_i
+\]</span> 我们需要知道<span class="math inline">\(\{b_k\},k\in\{0,1,\ldots,d\}\)</span>，于是求上式只须求<span class="math inline">\(\{a_k\},k\in\{0,1,\ldots,d\}\)</span>的值，而这是已知的（或很好求得的。</p>
+<p>当然，直接这样预处理算出<span class="math inline">\(b_n\)</span>的复杂度是<span class="math inline">\(O(d^2)\)</span>的，我们还可以优化。</p>
+<p>考虑直接将<span class="math inline">\(b_n\)</span>带入<span class="math inline">\(a_n\)</span>，有 <span class="math display">\[
+  a_n=\sum^d_{i=0}\binom{n}{i}b_i=\sum^d_{i=0}\binom{n}{i}\sum^i_{j=0}(-1)^{i-j}\binom{i}{j}a_j
+\]</span> 再次熟练地交换求和号 <span class="math display">\[
+  a_n=\sum^d_{j=0}a_j\sum^d_{i=j}\binom{n}{i}\binom{i}{j}(-1)^{i-j}
+\]</span> 用一个很简单的技巧 <span class="math display">\[
+  \binom{n}{i}\binom{i}{j}=\binom{n}{j}\binom{n-j}{i-j}\\
+  a_n=\sum^d_{j=0}a_j\sum^d_{i=j}\binom{n}{j}\binom{n-j}{i-j}(-1)^{i-j}
+\]</span> 证明很简单，可以打开用公式，也可以考虑其组合意义。</p>
+<p>将<span class="math inline">\(\binom{n}{j}\)</span>提出来，变换一下下标 <span class="math display">\[
+  a_n=\sum^d_{j=0}a_j\binom{n}{j}\sum^{d-j}_{i=0}\binom{n-j}{i}(-1)^{i}
+\]</span> ​</p>
+<p>后面那一坨求个和就可以得到 <span class="math display">\[
+  a_n=\sum^d_{j=0}a_j\binom{n}{j}(-1)^{d-j}\binom{n-j-1}{d-j}
+\]</span> (用<span class="math inline">\(\binom{i}{j}=\binom{i-1}{j}+\binom{i-1}{j-1}\)</span>带入即可)</p>
+<p>我们还可以把它变换一下，但实际上已经差不多了。</p>
+<p>我们要求的两个组合数数都可以递推求得。</p>
+<p>但也可以再转换一下，有 <span class="math display">\[
+  \begin{eqnarray}
+  a_n&amp;=&amp;\sum^d_{j=0}a_j(-1)^{d-j}\frac{n!(n-j-1)!}{j!(n-j)!(d-j)!(n-1-d)!}\\
+  &amp;=&amp;\sum^d_{j=0}a_j(-1)^{d-j}\frac{n(n-1)\cdots(n-d)}{j!(d-j)!(n-j)}
+  \end{eqnarray}
+\]</span> 预处理一下阶乘逆元和前后缀<span class="math inline">\(\Pi (n-i)\)</span>就可达到<span class="math inline">\(O(d)\)</span>（模数是质数的话用线性递推，不用快速幂）。</p>
+<p>​</p>
+<h1 id="一个更excited例子">一个更Excited例子</h1>
+<p>给定<span class="math inline">\(A,B,C,p\)</span>，求 <span class="math display">\[
+\sum^A_{i=1}i^BC^i~(mod~p)
+\]</span> 回忆一下我们等比数列求和的公式 <span class="math display">\[
+1+q+q^2+\cdots+q^n=\frac{1-q^{n+1}}{1-q}
+\]</span> 实际上我们可以看出它是一个<span class="math inline">\(\alpha+\beta q^n\)</span>的形式，其中<span class="math inline">\(\alpha,\beta\)</span>是系数。</p>
+<p>对于我们要求的和式，我们觉得结果肯定和<span class="math inline">\(P(n),C^n\)</span>有关，其中<span class="math inline">\(P(n)\)</span>为关于<span class="math inline">\(n\)</span>的多项式。</p>
+<p>比如<span class="math inline">\(Sum(n)=P(n)*C^n\)</span>，我们就可以设数列<span class="math inline">\(x_n=\frac{Sum(n)}{C^n}\)</span>，用之前讲的方法来求。</p>
+<p>但很不幸，当我用一个<a href="https://www.wolframalpha.com/" target="_blank" rel="noopener">神奇的网站(Wolframalpha)</a>找规律时，发现实际上<span class="math inline">\(Sum(n)\)</span>的形式是这样的 <span class="math display">\[
+Sum(n)=P(n)*C^n+Q_B(C)
+\]</span> 其中<span class="math inline">\(Q_B(x)\)</span>是一个各项系数与<span class="math inline">\(B\)</span>有关的多项式，长这样 <span class="math display">\[
+\begin{eqnarray}
+Q_1(x)&amp;=&amp;\frac{x}{(1-x)^2}\\
+Q_2(x)&amp;=&amp;\frac{x(1+x)}{(1-x)^3}\\
+Q_3(x)&amp;=&amp;\frac{x(1+4x+x^2)}{(1-x)^4}\\
+Q_4(x)&amp;=&amp;\frac{x(1+11x+11x^2+x^3)}{(1-x)^5}\\
+Q_3(x)&amp;=&amp;\frac{x(1+26x+66x^2+26x^3+x^4)}{(-1+x)^6}\\
+\end{eqnarray}
+\]</span></p>
+<p>感觉很有规律对不对？</p>
+<p>那一坨多项式的系数对称的很好看有木有？</p>
+<p>但是该怎么算呢？</p>
+<p>机智的我上<a href="https://oeis.org" target="_blank" rel="noopener">OEIS</a>搜了一波，发现它居然叫<a href="https://oeis.org/A173018" target="_blank" rel="noopener"><span class="math inline">\(eulerian~numbers\)</span></a>！</p>
+<p>欧拉数，很强！而且它可以<span class="math inline">\(O(B^2)\)</span>递推！</p>
+<p>于是这题就完了！</p>
+<p>很神奇对不对？</p>
+<p>更神奇的是，对<span class="math inline">\(\{1,2,\ldots,n\}\)</span>的一个排列<span class="math inline">\(p\)</span>，记<span class="math inline">\(f(p)=\sum^{n-1}_{i=1}[p_i&lt;p_{i+1}]\)</span>，则<span class="math inline">\(E(n,k)\)</span>就等于满足<span class="math inline">\(f(p)=k\)</span>的排列数。是不是很Excited！（<del>有同学想证明吗？欢迎填坑~</del>）</p>
+<hr>
+<p>完结散花~~</p>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/二项式反演/">二项式反演</a> <a class="tag tag--primary tag--small t-link" href="/tags/数学/">数学</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Solution/NKOJ4487-sets-count/" data-tooltip="NKOJ4487【集合计数】题解" aria-label="PREVIOUS: NKOJ4487【集合计数】题解">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Tour/PKU-WC/" data-tooltip="PKU-WC" aria-label="NEXT: PKU-WC">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/binomial-transform/&amp;title=二项式反演" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy;
+        2018 Jackpoison. All Rights Reserved.
+    </span>
+</footer>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Solution/NKOJ4487-sets-count/" data-tooltip="NKOJ4487【集合计数】题解" aria-label="PREVIOUS: NKOJ4487【集合计数】题解">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Tour/PKU-WC/" data-tooltip="PKU-WC" aria-label="NEXT: PKU-WC">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/binomial-transform/&amp;title=二项式反演" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/binomial-transform/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/binomial-transform/">
+                    <i class="fa fa-weibo" aria-hidden="true"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/binomial-transform/&amp;title=二项式反演">
+                    <i class="fa fa-qq" aria-hidden="true"></i><span>Share on QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/binomial-transform/">
+                    <i class="fa fa-star" aria-hidden="true"></i><span>Share on Qzone</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/binomial-transform/">
+                    <i class="fa fa-renren" aria-hidden="true"></i><span>Share on Renren</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Jackpoison</h4>
+        
+            <div id="about-card-bio">OIer....</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                never cool, never cold
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chongqing, China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/shell-necklace-solution/">
+                            <h3 class="media-heading">NKOJ 3933 【贝壳串】 题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 13, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题目<a href="http://oi.nks.edu.cn/zh/Problem/Details/3933" target="_blank" rel="noopener">在此</a></p>
+<p>给定每种长度的贝壳数量<span class="math inline">\(A(i)\)</span>，求长度为<span class="math inline">\(n\)</span>的链的种数。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/uncategorized/hi-hexo/">
+                            <h3 class="media-heading">Hi Hexo</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 14, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/polynomial-approximation/">
+                            <h3 class="media-heading">函数在给定区间上多项式近似的一种求法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="引子">引子</h2>
+<p>这个方法是原来乱翻线代书(<em>Linear Agebra Done Right</em>)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， <em>Simpson</em> 自适应积分也会了。闲来无事填个坑。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Tour/PKU-WC/">
+                            <h3 class="media-heading">PKU-WC</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>PKU WC的游记</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/binomial-transform/">
+                            <h3 class="media-heading">二项式反演</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 22, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h1 id="反演概念">反演概念</h1>
+<p>对于序列<span class="math inline">\(\{f_n\},\{g_n\}\)</span>，我们可以找到一组关系，可以将<span class="math inline">\(\{f_n\}\)</span>与<span class="math inline">\(\{g_n\}\)</span>变换，这样的操作称为反演。</p>
+<p>即<span class="math inline">\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\)</span> <span class="math display">\[
+f_n=\sum^n_{i=0}{a_{n,i}g_i}
+\]</span></p>
+<p><span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}f_i
+\]</span></p>
+<p>两者等价。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                            <h3 class="media-heading">NKOJ4487【集合计数】题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 25, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题面在<a href="http://oi.nks.edu.cn/zh/Problem/Details/4487" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>一个有<span class="math inline">\(N\)</span>个元素的集合有<span class="math inline">\(2^N\)</span>个不同子集（包含空集），现在要在这<span class="math inline">\(2^N\)</span>个集合中取出若干集合（至少一个），使得它们的交集的元素个数为<span class="math inline">\(K\)</span>，求取法的方案数，答案模<span class="math inline">\(1000000007\)</span>。（是质数喔~）</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/generating-function/">
+                            <h3 class="media-heading">生成函数</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 8, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="定义">定义</h3>
+<blockquote>
+<p>对于数列<span class="math inline">\(\{f_n\}\)</span>，我们定义<span class="math inline">\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)</span>，并称<span class="math inline">\(\tilde F(x)\)</span>为数列<span class="math inline">\(\{f_n\}\)</span>的生成函数。</p>
+</blockquote>
+<p>定义就这么点。</p>
+<p>从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。</p>
+<p>但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来计数，求解数列等。</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-peofhqjkzcghmndknakluequy1y6owxdwpaqyju9ntl9zxnk7rdolb3rjjoj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('CBG68KFSTU', '56dea5b1cb40f8bbd368a9d4326f2ba9');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    </body>
+</html>

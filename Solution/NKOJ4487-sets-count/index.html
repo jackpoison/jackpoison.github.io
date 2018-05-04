@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Jack&#39;s Little Ship">
+    <title>NKOJ4487【集合计数】题解 - Jack&#39;s Little Ship</title>
+    <meta name="author" content="Jackpoison">
+    
+    
+        <link rel="icon" href="https://jackpison.tk/assets/images/hp_deathhallows.png">
+    
+    
+    <meta name="description" content="题面在这里  一个有\(N\)个元素的集合有\(2^N\)个不同子集（包含空集），现在要在这\(2^N\)个集合中取出若干集合（至少一个），使得它们的交集的元素个数为\(K\)，求取法的方案数，答案模\(1000000007\)。（是质数喔~）">
+<meta name="keywords" content="Solution,二项式反演">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="NKOJ4487【集合计数】题解">
+<meta property="og:url" content="https://jackpison.tk/Solution/NKOJ4487-sets-count/index.html">
+<meta property="og:site_name" content="Jack&#39;s Little Ship">
+<meta property="og:description" content="题面在这里  一个有\(N\)个元素的集合有\(2^N\)个不同子集（包含空集），现在要在这\(2^N\)个集合中取出若干集合（至少一个），使得它们的交集的元素个数为\(K\)，求取法的方案数，答案模\(1000000007\)。（是质数喔~）">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-04T01:11:50.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NKOJ4487【集合计数】题解">
+<meta name="twitter:description" content="题面在这里  一个有\(N\)个元素的集合有\(2^N\)个不同子集（包含空集），现在要在这\(2^N\)个集合中取出若干集合（至少一个），使得它们的交集的元素个数为\(K\)，求取法的方案数，答案模\(1000000007\)。（是质数喔~）">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://jackpison.tk/assets/images/stalin.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+	
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Jack&#39;s Little Ship</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Jackpoison</h4>
+                
+                    <h5 class="sidebar-profile-bio">OIer....</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/jackpoison" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            NKOJ4487【集合计数】题解
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-02-25T19:14:07+08:00">
+	
+		    Feb 25, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Solution/">Solution</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>题面在<a href="http://oi.nks.edu.cn/zh/Problem/Details/4487" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>一个有<span class="math inline">\(N\)</span>个元素的集合有<span class="math inline">\(2^N\)</span>个不同子集（包含空集），现在要在这<span class="math inline">\(2^N\)</span>个集合中取出若干集合（至少一个），使得它们的交集的元素个数为<span class="math inline">\(K\)</span>，求取法的方案数，答案模<span class="math inline">\(1000000007\)</span>。（是质数喔~）</p>
+</blockquote>
+<a id="more"></a>
+<p>题目要求交集元素为<span class="math inline">\(K\)</span>，我们可以考虑对我们选的<span class="math inline">\(S_i\)</span>取补，有<span class="math inline">\(|\cup \overline S_i|=N-K\)</span>。</p>
+<p>我们只需要求并起来集合大小为<span class="math inline">\(N-K\)</span>的选法有多少种。</p>
+<p>我们设<strong>最后并起来得到的集合</strong>大小为<span class="math inline">\(n\)</span>的方案数为<span class="math inline">\(f(n)\)</span>，<span class="math inline">\(Ans=\binom{N}{N-K}f(N-K)\)</span>。</p>
+<p>显然选的集合都是都是全集的子集，考虑直接乱选的方案数，有<span class="math inline">\(2^{2^n}\)</span>种（每个集合都选或不选）。</p>
+<p>考虑最后并起来的结果为<span class="math inline">\(k​\)</span>，有 <span class="math display">\[
+2^{2^n}=\sum^n_{k=0}\binom{n}{k}f(k)
+\]</span> 二项式反演一下就有 <span class="math display">\[
+f(n)=\sum^n_{k=0}(-1)^{n-k}\binom{n}{k}2^{2^n}
+\]</span> 预处理一下阶乘及其逆元，<span class="math inline">\(2^{2^n}\)</span>直接平方平方就可以了，复杂度<span class="math inline">\(O(N)\)</span>。</p>
+<p>有个小细节，至少要选一个集合，要把空集的情况去掉，即<span class="math inline">\(Ans-=[N==K]\)</span>。</p>
+<p>附代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod=<span class="number">1e9</span>+<span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1000009</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;a+=b;a-=a&gt;=mod?mod:<span class="number">0</span>;<span class="keyword">return</span> a;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;a-=b;a+=a&lt;<span class="number">0</span>?mod:<span class="number">0</span>;<span class="keyword">return</span> a;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;<span class="keyword">return</span> <span class="number">1L</span>L*a*b%mod;&#125;</span><br><span class="line"><span class="keyword">int</span> inv[N],n,K;</span><br><span class="line"><span class="keyword">int</span> pows[N],Ans;</span><br><span class="line"><span class="keyword">int</span> fact[N],finv[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> mul(fact[a],mul(finv[b],finv[a-b]));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;K);</span><br><span class="line">	inv[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">2</span>;i&lt;=n;i++)</span><br><span class="line">		inv[i]=mul(mod-mod/i,inv[mod%i]);</span><br><span class="line">	fact[<span class="number">0</span>]=finv[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">	pows[<span class="number">0</span>]=<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">1</span>;i&lt;=n;i++) &#123;</span><br><span class="line">		fact[i]=mul(fact[i<span class="number">-1</span>],i);</span><br><span class="line">		finv[i]=mul(finv[i<span class="number">-1</span>],inv[i]);</span><br><span class="line">		pows[i]=mul(pows[i<span class="number">-1</span>],pows[i<span class="number">-1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	K=n-K;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=K;i++) &#123;</span><br><span class="line">			Ans=((K-i&amp;<span class="number">1</span>)?sub:add)(Ans,mul(C(K,i),pows[i]));</span><br><span class="line">	&#125;</span><br><span class="line">	Ans=mul(Ans,C(n,K));</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Ans-(K==<span class="number">0</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/Solution/">Solution</a> <a class="tag tag--primary tag--small t-link" href="/tags/二项式反演/">二项式反演</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mathematics/generating-function/" data-tooltip="生成函数" aria-label="PREVIOUS: 生成函数">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mathematics/binomial-transform/" data-tooltip="二项式反演" aria-label="NEXT: 二项式反演">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/&amp;title=NKOJ4487【集合计数】题解" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy;
+        2018 Jackpoison. All Rights Reserved.
+    </span>
+</footer>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mathematics/generating-function/" data-tooltip="生成函数" aria-label="PREVIOUS: 生成函数">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Mathematics/binomial-transform/" data-tooltip="二项式反演" aria-label="NEXT: 二项式反演">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/&amp;title=NKOJ4487【集合计数】题解" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Solution/NKOJ4487-sets-count/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                    <i class="fa fa-weibo" aria-hidden="true"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/&amp;title=NKOJ4487【集合计数】题解">
+                    <i class="fa fa-qq" aria-hidden="true"></i><span>Share on QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                    <i class="fa fa-star" aria-hidden="true"></i><span>Share on Qzone</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                    <i class="fa fa-renren" aria-hidden="true"></i><span>Share on Renren</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Jackpoison</h4>
+        
+            <div id="about-card-bio">OIer....</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                never cool, never cold
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chongqing, China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/shell-necklace-solution/">
+                            <h3 class="media-heading">NKOJ 3933 【贝壳串】 题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 13, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题目<a href="http://oi.nks.edu.cn/zh/Problem/Details/3933" target="_blank" rel="noopener">在此</a></p>
+<p>给定每种长度的贝壳数量<span class="math inline">\(A(i)\)</span>，求长度为<span class="math inline">\(n\)</span>的链的种数。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/uncategorized/hi-hexo/">
+                            <h3 class="media-heading">Hi Hexo</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 14, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/polynomial-approximation/">
+                            <h3 class="media-heading">函数在给定区间上多项式近似的一种求法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="引子">引子</h2>
+<p>这个方法是原来乱翻线代书(<em>Linear Agebra Done Right</em>)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， <em>Simpson</em> 自适应积分也会了。闲来无事填个坑。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Tour/PKU-WC/">
+                            <h3 class="media-heading">PKU-WC</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>PKU WC的游记</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/binomial-transform/">
+                            <h3 class="media-heading">二项式反演</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 22, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h1 id="反演概念">反演概念</h1>
+<p>对于序列<span class="math inline">\(\{f_n\},\{g_n\}\)</span>，我们可以找到一组关系，可以将<span class="math inline">\(\{f_n\}\)</span>与<span class="math inline">\(\{g_n\}\)</span>变换，这样的操作称为反演。</p>
+<p>即<span class="math inline">\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\)</span> <span class="math display">\[
+f_n=\sum^n_{i=0}{a_{n,i}g_i}
+\]</span></p>
+<p><span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}f_i
+\]</span></p>
+<p>两者等价。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                            <h3 class="media-heading">NKOJ4487【集合计数】题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 25, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题面在<a href="http://oi.nks.edu.cn/zh/Problem/Details/4487" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>一个有<span class="math inline">\(N\)</span>个元素的集合有<span class="math inline">\(2^N\)</span>个不同子集（包含空集），现在要在这<span class="math inline">\(2^N\)</span>个集合中取出若干集合（至少一个），使得它们的交集的元素个数为<span class="math inline">\(K\)</span>，求取法的方案数，答案模<span class="math inline">\(1000000007\)</span>。（是质数喔~）</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/generating-function/">
+                            <h3 class="media-heading">生成函数</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 8, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="定义">定义</h3>
+<blockquote>
+<p>对于数列<span class="math inline">\(\{f_n\}\)</span>，我们定义<span class="math inline">\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)</span>，并称<span class="math inline">\(\tilde F(x)\)</span>为数列<span class="math inline">\(\{f_n\}\)</span>的生成函数。</p>
+</blockquote>
+<p>定义就这么点。</p>
+<p>从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。</p>
+<p>但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来计数，求解数列等。</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-peofhqjkzcghmndknakluequy1y6owxdwpaqyju9ntl9zxnk7rdolb3rjjoj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('CBG68KFSTU', '56dea5b1cb40f8bbd368a9d4326f2ba9');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    </body>
+</html>

@@ -1,0 +1,966 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Jack&#39;s Little Ship">
+    <title>生成函数 - Jack&#39;s Little Ship</title>
+    <meta name="author" content="Jackpoison">
+    
+    
+        <link rel="icon" href="https://jackpison.tk/assets/images/hp_deathhallows.png">
+    
+    
+    <meta name="description" content="定义  对于数列\(\{f_n\}\)，我们定义\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)，并称\(\tilde F(x)\)为数列\(\{f_n\}\)的生成函数。  定义就这么点。 从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。 但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来">
+<meta name="keywords" content="数学,多项式,生成函数">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="生成函数">
+<meta property="og:url" content="https://jackpison.tk/Mathematics/generating-function/index.html">
+<meta property="og:site_name" content="Jack&#39;s Little Ship">
+<meta property="og:description" content="定义  对于数列\(\{f_n\}\)，我们定义\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)，并称\(\tilde F(x)\)为数列\(\{f_n\}\)的生成函数。  定义就这么点。 从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。 但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-05-04T01:11:50.048Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="生成函数">
+<meta name="twitter:description" content="定义  对于数列\(\{f_n\}\)，我们定义\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)，并称\(\tilde F(x)\)为数列\(\{f_n\}\)的生成函数。  定义就这么点。 从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。 但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="https://jackpison.tk/assets/images/stalin.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-1udptkpril81ozu8ifd8zpujn7ipu7lefxsiu5gxx0dpnzntdx6dusvki3ao.min.css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+
+    
+	
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+    
+        
+            
+        
+    
+
+<header id="header" data-behavior="4">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <div class="header-title">
+        <a class="header-title-link" href="/ ">Jack&#39;s Little Ship</a>
+    </div>
+    
+        
+            <a  class="header-right-picture "
+                href="#about">
+        
+        
+            <img class="header-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="4">
+    <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">Jackpoison</h4>
+                
+                    <h5 class="sidebar-profile-bio">OIer....</h5>
+                
+            </div>
+        
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/ "
+                            
+                            title="Home"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-home" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Home</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-categories"
+                            
+                            title="Categories"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-bookmark" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Categories</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-tags"
+                            
+                            title="Tags"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-tags" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Tags</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="/all-archives"
+                            
+                            title="Archives"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-archive" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Archives</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link open-algolia-search"
+                             href="#search"
+                            
+                            title="Search"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-search" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">Search</span>
+                    </a>
+            </li>
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link "
+                             href="#about"
+                            
+                            title="About"
+                        >
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-question" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">About</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+            <ul class="sidebar-buttons">
+            
+                <li class="sidebar-button">
+                    
+                        <a  class="sidebar-button-link " href="https://github.com/jackpoison" target="_blank" rel="noopener" title="GitHub">
+                    
+                        <i class="sidebar-button-icon fa fa-lg fa-github" aria-hidden="true"></i>
+                        <span class="sidebar-button-desc">GitHub</span>
+                    </a>
+            </li>
+            
+        </ul>
+        
+    </div>
+</nav>
+
+            
+            <div id="main" data-behavior="4"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            生成函数
+        </h1>
+    
+    
+        <div class="post-meta">
+    <time itemprop="datePublished" datetime="2018-03-08T19:45:36+08:00">
+	
+		    Mar 08, 2018
+    	
+    </time>
+    
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Mathematics/">Mathematics</a>
+
+
+    
+</div>
+
+    
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h3 id="定义">定义</h3>
+<blockquote>
+<p>对于数列<span class="math inline">\(\{f_n\}\)</span>，我们定义<span class="math inline">\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)</span>，并称<span class="math inline">\(\tilde F(x)\)</span>为数列<span class="math inline">\(\{f_n\}\)</span>的生成函数。</p>
+</blockquote>
+<p>定义就这么点。</p>
+<p>从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。</p>
+<p>但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来计数，求解数列等。 <a id="more"></a></p>
+<hr>
+<h3 id="生成函数的运算">生成函数的运算</h3>
+<p>对于<span class="math inline">\(\{a_n\}\)</span>我们记<span class="math inline">\(\tilde A(x)\)</span>为它对应的生成函数。</p>
+<p>即用小写字母表示序列，大写字母表示生成函数。</p>
+<ul>
+<li><p>加减乘常数 <span class="math display">\[
+\tilde A(x)=\alpha\tilde B(x)\pm \beta\tilde C(x)\\
+\Leftrightarrow a_n=\alpha b_n\pm \beta c_n
+\]</span></p></li>
+<li><p>偏移 <span class="math display">\[
+\tilde A(x)=x^l\tilde B(x)\\\Leftrightarrow a_n=b_{n-l}
+\]</span></p></li>
+<li><p>生成函数乘法(卷积) <span class="math display">\[
+\tilde A(x)=\tilde B(x) * \tilde C(x)\\
+\Leftrightarrow a_n=\sum_{i+j=n}b_i*c_j
+\]</span> 实际上，这个乘法还可以定义为其他的卷积，比如异或卷积，与卷积，或卷积以及其他，只要能快速计算，在OI中就比较很意义。</p>
+<p>假如我的卷积中有一个组合数系数怎么办呢？</p>
+<p>即 <span class="math display">\[
+c_n=\sum^n_{i=0}\binom{n}{i}a_ib_{n-i}
+\]</span> 我们就要用到指数型生成函数 <span class="math display">\[
+\tilde C(x)=\sum^\infty_{i=0}\frac{c_i}{i!}x^i
+\]</span> 你会惊奇地发现，这样卷起来之后刚好满足条件。</p></li>
+<li><p>求导和积分 <span class="math display">\[
+\tilde A(x)=\tilde B&#39;(x)\Leftrightarrow a_n=(n+1)b_{n+1}\\
+\tilde A(x)=\int \tilde B(x)dx\Leftrightarrow a_n=\frac{b_{n-1}}{n}
+\]</span> 这种操作多用于将你的序列乘或除下标的时候。</p></li>
+<li><p>指数和取对 <span class="math display">\[
+exp(\tilde F(x))=\sum^\infty_{i=0}\frac{\tilde F^{(i)}(x)}{i!}\\
+ln(\tilde F(x))=\sum^\infty_{i=1}\frac{\tilde F^{(i)}(x)}{i}
+\]</span> 该操作的对序列的意义不大明确，但可以用来求解包含生成函数的方程。</p>
+<p>具体实现时采用 倍增+FFT，暂不进行讨论。</p></li>
+<li><p>开方与求逆</p>
+<p>实际上这也没什么实际意义，通常都是解生成函数的中间操作。</p>
+<p>对形如<span class="math inline">\(\tilde G(x)=(1+\tilde F(x))^\alpha,\alpha\in \mathbb{R}\)</span>，我们可以利用广义二项式定理展开成 <span class="math display">\[
+\tilde G(x)=\sum^\infty_{i=0}\frac{\alpha^{\underline{i}}}{i!}\tilde F^{(i)}(x)
+\]</span> 其中<span class="math inline">\(\alpha^{\underline i}=\alpha(\alpha-1)\cdots(\alpha-i+1)\)</span>，</p>
+<p>特别地<span class="math inline">\(\frac{(-n)^{\underline{i}}}{i!}=\binom{n+i-1}{i}(-1)^{i}\)</span></p></li>
+<li><p>取模</p>
+<p>生成函数的推导中实际上很少采用取模操作。</p>
+<p>但由于计算机能处理的范围并不是我们求和的<span class="math inline">\(0\rightarrow\infty\)</span>，我们在具体应用中经常使用<span class="math inline">\((mod~x^n)\)</span>这样的操作来便于实现，在这里就不具体讨论了。</p></li>
+</ul>
+<p>总之，生成函数为我们提供了非常<strong>舒服</strong>的运算方式，<del>大部分时候</del>都可以让我们只用关心转移或递推，得到关系式之后扔给计算机求解。</p>
+<hr>
+<h3 id="常见的生成函数">常见的生成函数</h3>
+<p><span class="math display">\[
+\begin{aligned}
+\frac{1}{1-x}&amp;=\sum^\infty_{i=0}x^i\\
+\frac{1}{(1-x)^r}&amp;=\sum\binom{r+i-1}{i}x^i,r\in\mathbb{N^*}\\
+\frac{1}{(1-x)^2}&amp;=\sum^\infty_{i=0}(i+1)x^i=(\frac{1}{1-x})&#39;\\
+ln(\frac{1}{1-x})&amp;=\sum^\infty_{i=1}\frac{1}{i}x^i=\int\frac{1}{1-x}dx\\
+exp(x)&amp;=\sum^\infty_{i=0}\frac{x^i}{i!}\\
+ln(1+x)&amp;=\sum^\infty_{i=1}\frac{(-1)^{k+1}}{k}x^k
+\end{aligned}
+\]</span></p>
+<p>但这些有什么用呢？举几个例子。</p>
+<ol type="1">
+<li>假如我要求调和级数（<span class="math inline">\(H_n=\sum_{i=1}^n\frac{1}{i}\)</span>），我就可以拿出<span class="math inline">\(\{\frac{1}{n}\}\)</span>的生成函数<span class="math inline">\(ln(\frac{1}{1-x})\)</span>，给它乘上一个<span class="math inline">\(\frac{1}{1-x}\)</span>即可。即</li>
+</ol>
+<p><span class="math display">\[
+[x^n](\frac{1}{1-x}ln(\frac{1}{1-x}))=H_i
+\]</span></p>
+<ol start="2" type="1">
+<li>假如我要求将某个正整数拆分成若干个正整数之和的方案数，那么我就可以设生成函数<span class="math inline">\(f_n(x)=\sum^\infty_{k=0}x^{kn}=\frac{1}{1-x^n}​\)</span>，来表示正整数<span class="math inline">\(n​\)</span>选了<span class="math inline">\(k​\)</span>个，那答案的生成函数就可以表示为</li>
+</ol>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;F(x)=\prod^\infty_{n=1}f_n(x)=\prod^\infty_{n=1}\frac{1}{1-x^n}\\&amp;
+其中[x^n]F(x)为n的划分数。
+\end{aligned}
+\]</span></p>
+<hr>
+<h3 id="求解线性递推">求解线性递推</h3>
+<p>设<span class="math inline">\(a_n=b_1a_{n-1}+b_2a_{n-2}+\cdots+b_ka_{n-k}\)</span>为<span class="math inline">\(k\)</span>阶线性递推数列</p>
+<p>那么根据前面的偏移操作和乘常数的操作，有 $$ <span class="math display">\[\begin{equation}
+a_k=b_1a_{k-1}+b_2a_{k-2}\cdots+b_ka_0\\
+a_{k+1}=b_1xa_k+b_2a_{k-1}\cdots+b_ka_1\\
+\end{equation}\]</span></p>
+<p>\begin{aligned} A(x)=&amp;(A(x)-^{k-2}_{i=0}a_ix<sup>i)b_1x</sup>1\ +&amp;(A(x)-<sup>{k-3}<em>{i=0}a_ix<sup>i)b_2x</sup>2\ +&amp;\ +&amp;A(x)b_kx<sup>k+</sup>{k-1}</em>{i=0}a_ix</sup>i \end{aligned} $$ 将<span class="math inline">\(\tilde A(x)\)</span>移到一边，就有</p>
+<p><span class="math display">\[
+\tilde A(x)(1-\sum^{k}_{i=1}b_ix^i)=\sum^{k-1}_{i=0}a_i(1-\sum_{j=1}^{k-i-1}b_jx^j)
+\]</span> 得 <span class="math display">\[
+\tilde A(x)=\frac{\sum^{k-1}_{i=0}a_i(1-\sum_{j=1}^{k-i-1}b_jx^j)}{1-\sum^{k}_{i=1}b_ix^i}
+\]</span> 可使用多项式求逆解决。</p>
+<blockquote>
+<p>题外话</p>
+<p>为什么会有特征根呢？</p>
+<p>我们可以发现答案的分母就相当于将特征根方程<span class="math inline">\(x^k=\sum^k_{i=1}b_ix^{k-i}\)</span>的系数颠倒，由代数基本定理可知<span class="math inline">\(1-\sum^{k}_{i=1}b_ix^i=\prod_{i=1}^k(1-\lambda_ix)\)</span>，其中<span class="math inline">\(\lambda_i\)</span>是特征根。可以将答案写为<span class="math inline">\(\tilde A(x)=\sum^k_{i=1}\frac{C_i}{1-\lambda_ix}\)</span>的形式，其中<span class="math inline">\(C_i\)</span>为常数，由之前的展开就可以知道<span class="math inline">\([x^n]\tilde A(x)=\sum^k_{i=1}{C_i\lambda_i^n}\)</span>。</p>
+<p>此处应有严谨证明，但时间有限，只有先挖坑了。</p>
+</blockquote>
+<hr>
+<h3 id="求解卷积递推">求解卷积递推</h3>
+<h5 id="例-the-child-and-binary-tree">例 The Child And Binary Tree</h5>
+<blockquote>
+<p>有一个含有 <span class="math inline">\(n\)</span> 个元素的正整数集合 <span class="math inline">\(S={c_1,c_2,⋯,c_n}\)</span>，我们称一个节点带权的有根二叉树是<strong>好的</strong>，当且仅当对于每个节点 <span class="math inline">\(v\)</span>，<span class="math inline">\(v\)</span> 的权值在 <span class="math inline">\(S\)</span> 内，并且我们称这棵树的权值为所有节点的权值和</p>
+<p>现在给出一个正整数 <span class="math inline">\(m\)</span>，你要计算出对于所有正整数 <span class="math inline">\(1≤s≤m\)</span>，有多少不同的<strong>好的</strong>二叉树满足它的权值是 <span class="math inline">\(s\)</span></p>
+<p>答案对 <span class="math inline">\(998244353(7×17×223+1,一个质数)\)</span> 取模，其中 <span class="math inline">\(1≤n,m,c_i≤10^5\)</span></p>
+<p>题目链接：<a href="http://codeforces.com/contest/438/problem/E" target="_blank" rel="noopener">Codeforces-438E</a>、<a href="http://www.lydsy.com/JudgeOnline/problem.php?id=3625" target="_blank" rel="noopener">BZOJ-3625</a>、<a href="http://oi.nks.edu.cn/zh/Problem/Details/3218" target="_blank" rel="noopener">NKOJ-3218</a></p>
+</blockquote>
+<p>这道题就可以体现生成函数的灵活性。</p>
+<p>考虑函数<span class="math inline">\(\tilde F(x)\)</span>，它表示<strong>所有的二叉树</strong>。<span class="math inline">\([x^n]\tilde F(x)\)</span>表示权值和为<span class="math inline">\(n\)</span>的不同的二叉树个数。为了方便，我们定义<span class="math inline">\([x^0]\tilde F(x)=1\)</span>，即存在空树。</p>
+<p>我们想一想我们的二叉树是如何生成的。</p>
+<p>它有一个根节点，根节点有左右子树，那么递推（递归？）关系就出来了。 <span class="math display">\[
+\tilde F(x)=\tilde F(x)(\sum x^{s_i})\tilde F(x)+1
+\]</span> 左子树的方案卷上根的方案再卷上右子树的方案，再加上空树的方案。</p>
+<p>我们生成函数的性质很好，它几乎支持所有运算，所以就可以解得 <span class="math display">\[
+\tilde S(x)=\sum x^{s_i}\\
+\tilde F(x)=\frac{1-\sqrt{1-4\tilde S(x)}}{2\tilde S(x)}
+\]</span> 为什么不取+号呢？</p>
+<p>由于我们具体操作的时候，多项式取逆必须要满足常数项不为0，但显然我们的<span class="math inline">\(\tilde S(x)\)</span>没有常数项，所以必须要求上面的式子没有常数项，以约掉公共的<span class="math inline">\(x^i\)</span>，以便求逆。假如对多项式开方熟悉一点就会知道上面<strong>开方</strong>出来的常数项为1，我们要减掉。就是这样。</p>
+<hr>
+<h5 id="例-括号序列计数n1">例 括号序列计数(n=1)</h5>
+<blockquote>
+<p>题面在此：<a href="https://vijos.org/p/1871" target="_blank" rel="noopener">vijos</a>,<a href="http://oi.nks.edu.cn/zh/Problem/Details/2884" target="_blank" rel="noopener">nkoj</a>,<a href="http://www.lydsy.com/JudgeOnline/problem.php?id=3605" target="_blank" rel="noopener">bzoj</a></p>
+<p>我们只考虑(n=1)的情况，即告诉你左括号，右括号，空格的种类为<span class="math inline">\(a,b,c\)</span>，问你长度为<span class="math inline">\(len\)</span>的括号序列的个数。</p>
+</blockquote>
+<p>这个问题显然可以用Catalan数和卷积解决，但我们可以试着用生成函数思考。</p>
+<blockquote>
+<p>以下可能会出现生成函数符号与集合混用的情况，请大家感性理解。</p>
+</blockquote>
+<p>我们要求长度为<span class="math inline">\(len\)</span>的括号序列的个数，显然我们要求一个生成函数来表示所有的合法括号序列，设它为<span class="math inline">\(\tilde F(x)\)</span>,<span class="math inline">\([x^n]\tilde F(x)\)</span>为长度为<span class="math inline">\(n\)</span>的合法括号序列种数。但是我们直接这样的话，似乎不是很好转移。</p>
+<p>不好转移，那我们就多设几个生成函数呗。</p>
+<p>设<span class="math inline">\(A(x)\)</span>为所有外面<strong>套了一个括号</strong>的括号序列的生成函数，例如(())<span class="math inline">\(\in A\)</span>，但()()<span class="math inline">\(\notin A\)</span>。</p>
+<p>设<span class="math inline">\(B(x)\)</span>为<strong>仅由空格</strong>组成的合法序列，例如{|,#,##,###,…}，|表示空状态。</p>
+<p>那么有 <span class="math display">\[
+B(x)=\frac{1}{1-cx}\\
+A(x)=axF(x)bx=abx^2F(x)\\
+F(x)=F(x)A(x)B(x)+B(x)\\
+F(x)=F^2(x)abx^2B(x)+B(x)\\
+F(x)=\frac{1-\sqrt{1-4abx^2B^2(x)}}{2abx^2B(x)}
+\]</span> 多项式开方，求逆一股脑弄上去就好了。</p>
+<blockquote>
+<p>当n=2时，上面的<span class="math inline">\(F,A,B\)</span>就可以变成2x2的矩阵，但是似乎这样并解不出来，尬。</p>
+</blockquote>
+<blockquote>
+<p>实际上这两个递推的解形式都是Catalan-like</p>
+<p>Catalan数的生成函数为<span class="math inline">\(C(x)=\frac{1-\sqrt{1-4x}}{2x}\)</span></p>
+</blockquote>
+<hr>
+<h3 id="关于概率的计算">关于概率的计算</h3>
+<p>用生成函数来求解概率问题在有些时候往往有奇效。</p>
+<p>设某个问题的状态可以又一些小状态<span class="math inline">\(\{s_i\}\)</span>的序列表示，其中出现<span class="math inline">\(s_i\)</span>的概率为<span class="math inline">\(p_i\)</span>。</p>
+<p>记所有当前所有状态的集合（生成函数）为<span class="math inline">\(S\)</span>，那么</p>
+<p><span class="math inline">\(S&#39;=S(\sum p_is_i)\)</span></p>
+<p><span class="math inline">\(S&#39;\)</span>中每一项的系数都表示从<span class="math inline">\(S\)</span>集合中再走一步得到某个状态的概率<span class="math inline">\(p\)</span>。</p>
+<p>我们将<span class="math inline">\(s_i\)</span>变成一些与<span class="math inline">\(x\)</span>有关的东西，就可以统计一些信息。</p>
+<h5 id="例-一道有趣的硬币游戏">例 一道<del>有趣的</del>硬币游戏</h5>
+<blockquote>
+<p>题目链接：<a href="http://oi.nks.edu.cn/zh/Problem/Details/4087" target="_blank" rel="noopener">NKOJ</a></p>
+<p>给你一些长度为m的HT序列，不断抛硬币，出现上述序列中的一个就停止，求以每种序列停止的概率。</p>
+</blockquote>
+<p>这道题的推导可以是将生成函数和集合结合在一起。</p>
+<p>我们设<span class="math inline">\(N\)</span>是没有人赢的状态的集合，把他化为生成函数的感觉就是把它的每个状态前面乘上一个概率系数再加起来，但出现HT的概率是已知的，我们可以等会再加进去。</p>
+<p>设<span class="math inline">\(A_i\)</span>为第<span class="math inline">\(i\)</span>个串<span class="math inline">\(S_i\)</span>的赢的状态集合。考虑走了一步，就有 <span class="math display">\[
+|+N(H+T)=N+\sum A_i
+\]</span> 其中“|”表示空状态。</p>
+<p>但是只有这个关系式还不够，我们要想想他们之间更多的关系。</p>
+<p>举个例子，<span class="math inline">\(S_1=\)</span>HTHT，<span class="math inline">\(S_2\)</span>=HTTT。</p>
+<p>我们想一想，直接给<span class="math inline">\(N\)</span>接上<span class="math inline">\(S_2\)</span>，得到的可能是<span class="math inline">\(A_2\)</span>，但也可能先是<span class="math inline">\(A_1\)</span>，再加上一段。</p>
+<p>e.g. origin=HT，modified=HT<strong>HTTT</strong></p>
+<p>假如我们考虑一下这些前后缀重合的状态，就可以发现如下等式 <span class="math display">\[
+\begin{aligned}
+N\cdot HTTT&amp;=A_1\cdot TT+A_2\\
+N\cdot HTHT&amp;=A_1
+\end{aligned}
+\]</span> 现在我们把<span class="math inline">\(H\)</span>和<span class="math inline">\(T\)</span>都换成<span class="math inline">\(\frac{x}{2}\)</span>，再令<span class="math inline">\(x=1\)</span>，根据我们的定义，<span class="math inline">\(A_i(1)\)</span>就可以表示出现<span class="math inline">\(A_i\)</span>中状态的概率。</p>
+<p>我们在<span class="math inline">\(x=1\)</span>的情况下解方程，就可以得到每种序列赢的概率。</p>
+<hr>
+<h3 id="一些鬼畜的计数问题">一些鬼畜的计数问题</h3>
+<h5 id="例-n个节点的无标号有根有向树个数source-taocp">例 n个节点的无标号有根有向树个数(source: TAOCP)</h5>
+<blockquote>
+<p>RT.</p>
+<p>有向有根树的定义为 <span class="math display">\[
+\forall v \in V,\exists one~and~only~one~path~from~v~to~root
+\]</span></p>
+</blockquote>
+<p>设每答案为<span class="math inline">\(a_n\)</span>。</p>
+<p>当<span class="math inline">\(n=1\)</span>时，显然<span class="math inline">\(a_1=1\)</span>。</p>
+<p>当<span class="math inline">\(n&gt;1\)</span>时，显然<span class="math inline">\(root\)</span>有一些奇奇怪怪的子树。</p>
+<p>我们假设大小为<span class="math inline">\(j\)</span>的子树有<span class="math inline">\(c_j\)</span>个，这里有<span class="math inline">\(\binom{c_j+a_j-1}{c_j}\)</span>种方案（隔板法，将<span class="math inline">\(c_j\)</span>划分成<span class="math inline">\(a_j\)</span>块，可以为空）。 <span class="math display">\[
+a_n=\sum_{c_1+2c_2+\cdots=n-1}\binom{c_1+a_1-1}{c_1}\binom{c_2+a_2-1}{c_2}\cdots\binom{c_{n-1}+a_{n-1}+1}{c_{n-1}}
+\]</span> 根据我们前面的公式 <span class="math display">\[
+\sum^\infty_{i=0}{\binom{i+k-1}{i}}x^{ir}=\frac{1}{(1-x^r)^k}
+\]</span> 有 <span class="math display">\[
+A(x)=\frac{x}{(1-x)^{a_1}(1-x^2)^{a_2}\cdots}
+\]</span> 如何解？</p>
+<p>取对之后，有 <span class="math display">\[
+\begin{aligned}
+ln~A(x)&amp;=-\sum_{i=1}^\infty{a_i}{ln(1-x^i)}+ln(x)\\
+&amp;=-\sum_{i=1}^{\infty}a_i\sum_{j=1}^\infty\frac{(-1)^{j+1}(-x^i)^j}{j}+ln(x)\\
+&amp;=\sum_{i=1}^\infty a_i\sum^\infty_{j=1}\frac{x^{ij}}{j}+ln(x)\\
+&amp;=\sum_{i=1}^\infty \frac{A(x^i)}{i}+ln(x)
+\end{aligned}
+\]</span> 即 <span class="math display">\[
+A(x)=x\cdot exp(\sum^\infty_{i=1}\frac{A(x^i)}{i})
+\]</span> 两边同时求导，有 <span class="math display">\[
+\begin{aligned}
+A&#39;(x)=\frac{A(x)}{x}+A(x)\cdot\sum^\infty_{i=1}A&#39;(x^i)x^{i-1}\\
+x\cdot A&#39;(x)=A(x)(1+\sum_{i=1}^\infty A&#39;(x^i)x^i)
+\end{aligned}
+\]</span> 比较一波对应系数，我们可以发现 <span class="math display">\[
+(n-1)a_nx^n=\sum_{i+j*r=n}a_ix^ia_jjx^{jr},i,j,r\ge1
+\]</span> 于是乎 <span class="math display">\[
+(n-1)a_n=\sum_{i=1}^{n-1}ia_is_{n,i}\\
+其中s_{n,i}=\sum_{n-i*r&gt;0}{a_{n-i*r}}
+\]</span> 我们就得到了一个<span class="math inline">\(O(n^2log~n)\)</span>求<span class="math inline">\(a_n\)</span>的较为优秀算法。</p>
+<hr>
+<h3 id="当我们把卷积换成异或卷积之后">当我们把卷积换成异或卷积之后</h3>
+<p>很多时候，我们用生成函数求解问题，都不是在关注它是函数，而是寻找它表示的状态之间的关系。</p>
+<p>生成函数的运算只是转移的另一种表达。</p>
+<p>反正我们知道它能算！</p>
+<h5 id="例-sdoi-2017-切树游戏">例 SDOI 2017 切树游戏</h5>
+<blockquote>
+<p>给出一棵无根树 <span class="math inline">\(T\)</span>，节点从 <span class="math inline">\(1\)</span> 到 <span class="math inline">\(n\)</span> 编号，点 <span class="math inline">\(i\)</span> 的权值为 <span class="math inline">\(v_i\)</span>。定义一棵树的权值为树中所有点的权值异或起来的结果。</p>
+<p>你想要在树上玩一个游戏。你会做 <span class="math inline">\(m\)</span> 次以下两种操作：</p>
+<ul>
+<li><code>C x y</code>：将 <span class="math inline">\(v_x\)</span> 修改为 <span class="math inline">\(y\)</span>。</li>
+<li><code>Q k</code>：询问 <span class="math inline">\(T\)</span> 有多少棵非空的连通子树，满足这棵子树的权值为 <span class="math inline">\(k\)</span>。输出模 10007。</li>
+</ul>
+</blockquote>
+<p>如何求权值为<span class="math inline">\(k\)</span>的子树个数？</p>
+<p>考虑把<span class="math inline">\(T\)</span>变成有根树，对于一个联通子树<span class="math inline">\(T&#39;\)</span>，我们令<span class="math inline">\(T&#39;\)</span>深度最小(在<span class="math inline">\(T\)</span>中)的为根，那么我们只需要考虑，某个点，它子树中，包括它，且权值为<span class="math inline">\(k\)</span>的子树有多少。</p>
+<p>假设我们现在<span class="math inline">\(u\)</span>，记它的儿子为<span class="math inline">\(s_i\)</span>，点<span class="math inline">\(x\)</span>的答案为<span class="math inline">\(F_x(z)\)</span>。</p>
+<p>则<span class="math inline">\(F_u(z)=z^{v_u}\prod (z^0+F_{s_i}(z))\)</span>，在这里，我们就在考虑以每个儿子为根的联通子树是怎么选的。</p>
+<p>要解决这道题，我们可以考虑轻重链剖分维护<span class="math inline">\(\sum_{u\in T}F_u(z)\)</span>。</p>
+<p>由于我们的乘法是异或卷积，实际实现中，我们可以维护<span class="math inline">\(F(z)\)</span>FWT后点值(这样叫可能有些不妥)，我们生成函数的加减乘除可以换成对应点值的加减乘除，每次修改，就可以在每条重链的线段树上进行区间乘法/除法，注意模数较小，除数可能为0，要记下能被<span class="math inline">\(mod\)</span>除几次。</p>
+<p>但对于类似的问题，%%%<a href="http://immortalco.blog.uoj.ac/blog/2625" target="_blank" rel="noopener">ImmortalCO</a>有一种动态DP的黑科技。</p>
+<p>对每个点 <span class="math inline">\(u\)</span> 定义一个向量 <span class="math inline">\((F_u(z),H_u(z),z^0)\)</span> 。</p>
+<p><span class="math inline">\(H_u(z)\)</span>是子树中的答案和。</p>
+<p>对于每条重链上的，维护一下它对它对其重链上的父节点的贡献，这应该是一个和它的虚儿子有关的矩阵，我们只需要一个能支持单点修改，能高效维护矩阵积的数据结构，可以用线段树解决。</p>
+<p>详情请见<a href="http://immortalco.blog.uoj.ac/blog/2625" target="_blank" rel="noopener">ImmortalCO’s Blog</a>。</p>
+<hr>
+<h3 id="reference">Reference</h3>
+<ul>
+<li><a href="http://immortalco.blog.uoj.ac/blog/2625" target="_blank" rel="noopener">ImmortalCO’s Blog</a></li>
+<li><a href="http://blog.miskcoo.com/2015/06/polynomial-with-newton-method" target="_blank" rel="noopener">Miskcoo’s Blog</a></li>
+<li>TAOCP</li>
+<li>Concrete Mathematics</li>
+<li>《组合数学》</li>
+</ul>
+
+            
+
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">TAGGED IN</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/多项式/">多项式</a> <a class="tag tag--primary tag--small t-link" href="/tags/数学/">数学</a> <a class="tag tag--primary tag--small t-link" href="/tags/生成函数/">生成函数</a>
+
+            </div>
+        
+        
+            <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Solution/NKOJ4487-sets-count/" data-tooltip="NKOJ4487【集合计数】题解" aria-label="NEXT: NKOJ4487【集合计数】题解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/generating-function/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/generating-function/&amp;title=生成函数" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/generating-function/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/generating-function/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+        
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy;
+        2018 Jackpoison. All Rights Reserved.
+    </span>
+</footer>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        processEscapes: true
+      }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+    });
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="4">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/Solution/NKOJ4487-sets-count/" data-tooltip="NKOJ4487【集合计数】题解" aria-label="NEXT: NKOJ4487【集合计数】题解">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
+                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions" href="#btn-open-shareoptions" aria-label="Share this post">
+                <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </a>
+        </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/generating-function/" title="Share on Weibo">
+                    <i class="fa fa-weibo" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/generating-function/&amp;title=生成函数" title="Share on QQ">
+                    <i class="fa fa-qq" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/generating-function/" title="Share on Qzone">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+            
+            
+            <li class="post-action hide-xs">
+                <a class="post-action-btn btn btn--default" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/generating-function/" title="Share on Renren">
+                    <i class="fa fa-renren" aria-hidden="true"></i>
+                </a>
+            </li>
+        
+        
+            
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
+            
+                <i class="fa fa-list" aria-hidden="true"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="4">
+    <i id="btn-close-shareoptions" class="fa fa-close"></i>
+    <ul class="share-options">
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://service.weibo.com/share/share.php?&amp;title=https://jackpison.tk/Mathematics/generating-function/">
+                    <i class="fa fa-weibo" aria-hidden="true"></i><span>Share on Weibo</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://connect.qq.com/widget/shareqq/index.html?url=https://jackpison.tk/Mathematics/generating-function/&amp;title=生成函数">
+                    <i class="fa fa-qq" aria-hidden="true"></i><span>Share on QQ</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://jackpison.tk/Mathematics/generating-function/">
+                    <i class="fa fa-star" aria-hidden="true"></i><span>Share on Qzone</span>
+                </a>
+            </li>
+        
+            
+            
+            <li class="share-option">
+                <a class="share-option-btn" target="new" href="http://widget.renren.com/dialog/share?resourceUrl=https://jackpison.tk/Mathematics/generating-function/">
+                    <i class="fa fa-renren" aria-hidden="true"></i><span>Share on Renren</span>
+                </a>
+            </li>
+        
+    </ul>
+</div>
+
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/stalin.jpg" alt="Author&#39;s picture"/>
+        
+            <h4 id="about-card-name">Jackpoison</h4>
+        
+            <div id="about-card-bio">OIer....</div>
+        
+        
+            <div id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                never cool, never cold
+            </div>
+        
+        
+            <div id="about-card-location">
+                <i class="fa fa-map-marker"></i>
+                <br/>
+                Chongqing, China
+            </div>
+        
+    </div>
+</div>
+
+        
+            <div id="algolia-search-modal" class="modal-container">
+    <div class="modal">
+        <div class="modal-header">
+            <span class="close-button"><i class="fa fa-close"></i></span>
+            <a href="https://algolia.com" target="_blank" rel="noopener" class="searchby-algolia text-color-light link-unstyled">
+                <span class="searchby-algolia-text text-color-light text-small">by</span>
+                <img class="searchby-algolia-logo" src="https://www.algolia.com/static_assets/images/press/downloads/algolia-light.svg">
+            </a>
+            <i class="search-icon fa fa-search"></i>
+            <form id="algolia-search-form">
+                <input type="text" id="algolia-search-input" name="search"
+                    class="form-control input--large search-input" placeholder="Search "
+                    />
+            </form>
+        </div>
+        <div class="modal-body">
+            <div class="no-result text-color-light text-center">no post found</div>
+            <div class="results">
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/shell-necklace-solution/">
+                            <h3 class="media-heading">NKOJ 3933 【贝壳串】 题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 13, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题目<a href="http://oi.nks.edu.cn/zh/Problem/Details/3933" target="_blank" rel="noopener">在此</a></p>
+<p>给定每种长度的贝壳数量<span class="math inline">\(A(i)\)</span>，求长度为<span class="math inline">\(n\)</span>的链的种数。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/uncategorized/hi-hexo/">
+                            <h3 class="media-heading">Hi Hexo</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 14, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/polynomial-approximation/">
+                            <h3 class="media-heading">函数在给定区间上多项式近似的一种求法</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 20, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h2 id="引子">引子</h2>
+<p>这个方法是原来乱翻线代书(<em>Linear Agebra Done Right</em>)看到的，当时就觉得非常厉害，但由于要求积分，一直不知道怎么实现。现在好了，多项式学了， <em>Simpson</em> 自适应积分也会了。闲来无事填个坑。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Tour/PKU-WC/">
+                            <h3 class="media-heading">PKU-WC</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Jan 29, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>PKU WC的游记</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/binomial-transform/">
+                            <h3 class="media-heading">二项式反演</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 22, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h1 id="反演概念">反演概念</h1>
+<p>对于序列<span class="math inline">\(\{f_n\},\{g_n\}\)</span>，我们可以找到一组关系，可以将<span class="math inline">\(\{f_n\}\)</span>与<span class="math inline">\(\{g_n\}\)</span>变换，这样的操作称为反演。</p>
+<p>即<span class="math inline">\(\exists~\{a_{n,i}\},\{b_{n,i}\},s.t.\)</span> <span class="math display">\[
+f_n=\sum^n_{i=0}{a_{n,i}g_i}
+\]</span></p>
+<p><span class="math display">\[
+g_n=\sum^n_{i=0}b_{n,i}f_i
+\]</span></p>
+<p>两者等价。</p></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Solution/NKOJ4487-sets-count/">
+                            <h3 class="media-heading">NKOJ4487【集合计数】题解</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Feb 25, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><p>题面在<a href="http://oi.nks.edu.cn/zh/Problem/Details/4487" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>一个有<span class="math inline">\(N\)</span>个元素的集合有<span class="math inline">\(2^N\)</span>个不同子集（包含空集），现在要在这<span class="math inline">\(2^N\)</span>个集合中取出若干集合（至少一个），使得它们的交集的元素个数为<span class="math inline">\(K\)</span>，求取法的方案数，答案模<span class="math inline">\(1000000007\)</span>。（是质数喔~）</p>
+</blockquote></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a class="link-unstyled" href="https://jackpison.tk/Mathematics/generating-function/">
+                            <h3 class="media-heading">生成函数</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Mar 8, 2018
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"><h3 id="定义">定义</h3>
+<blockquote>
+<p>对于数列<span class="math inline">\(\{f_n\}\)</span>，我们定义<span class="math inline">\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)</span>，并称<span class="math inline">\(\tilde F(x)\)</span>为数列<span class="math inline">\(\{f_n\}\)</span>的生成函数。</p>
+</blockquote>
+<p>定义就这么点。</p>
+<p>从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。</p>
+<p>但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来计数，求解数列等。</div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+            <p class="results-count text-medium"
+                data-message-zero="no post found"
+                data-message-one="1 post found"
+                data-message-other="{n} posts found">
+                7 posts found
+            </p>
+        </div>
+    </div>
+</div>
+
+        
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+        <!--SCRIPTS-->
+<script src="/assets/js/script-peofhqjkzcghmndknakluequy1y6owxdwpaqyju9ntl9zxnk7rdolb3rjjoj.min.js"></script>
+<!--SCRIPTS END-->
+
+    
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment-with-locales.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script>
+        var algoliaClient = algoliasearch('CBG68KFSTU', '56dea5b1cb40f8bbd368a9d4326f2ba9');
+        var algoliaIndex = algoliaClient.initIndex('my-hexo-blog');
+    </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+    </body>
+</html>
