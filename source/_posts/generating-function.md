@@ -134,12 +134,14 @@ $$
 设$a_n=b_1a_{n-1}+b_2a_{n-2}+\cdots+b_ka_{n-k}$为$k$阶线性递推数列
 
 那么根据前面的偏移操作和乘常数的操作，有
+
 $$
 \begin{equation}
 a_k=b_1a_{k-1}+b_2a_{k-2}\cdots+b_ka_0\\
 a_{k+1}=b_1xa_k+b_2a_{k-1}\cdots+b_ka_1\\
 \end{equation}
-
+$$
+$$
 \begin{aligned}
 \tilde A(x)=&(\tilde A(x)-\sum^{k-2}_{i=0}a_ix^i)b_1x^1\\
 +&(\tilde A(x)-\sum^{k-3}_{i=0}a_ix^i)b_2x^2\\
@@ -147,6 +149,7 @@ a_{k+1}=b_1xa_k+b_2a_{k-1}\cdots+b_ka_1\\
 +&\tilde A(x)b_kx^k+\sum^{k-1}_{i=0}a_ix^i
 \end{aligned}
 $$
+
 将$\tilde A(x)$移到一边，就有
 
 $$
