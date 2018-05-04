@@ -21,7 +21,7 @@
 <meta property="og:site_name" content="Jack&#39;s Little Ship">
 <meta property="og:description" content="定义  对于数列\(\{f_n\}\)，我们定义\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)，并称\(\tilde F(x)\)为数列\(\{f_n\}\)的生成函数。  定义就这么点。 从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。 但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2018-05-04T01:11:50.048Z">
+<meta property="og:updated_time" content="2018-05-04T01:51:21.379Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生成函数">
 <meta name="twitter:description" content="定义  对于数列\(\{f_n\}\)，我们定义\(\tilde F(x)=\sum^\infty_{i=0}f_ix^i\)，并称\(\tilde F(x)\)为数列\(\{f_n\}\)的生成函数。  定义就这么点。 从这个定义可以看出，生成函数实际上就是在描述一个序列（其实你也可以把它当做集合）。 但实际应用中，生成函数可以比更加灵活，我们可以利用生成函数来表示状态集合，利用生成函数的性质来">
@@ -307,11 +307,21 @@ ln(1+x)&amp;=\sum^\infty_{i=1}\frac{(-1)^{k+1}}{k}x^k
 <hr>
 <h3 id="求解线性递推">求解线性递推</h3>
 <p>设<span class="math inline">\(a_n=b_1a_{n-1}+b_2a_{n-2}+\cdots+b_ka_{n-k}\)</span>为<span class="math inline">\(k\)</span>阶线性递推数列</p>
-<p>那么根据前面的偏移操作和乘常数的操作，有 $$ <span class="math display">\[\begin{equation}
+<p>那么根据前面的偏移操作和乘常数的操作，有</p>
+<p><span class="math display">\[
+\begin{equation}
 a_k=b_1a_{k-1}+b_2a_{k-2}\cdots+b_ka_0\\
 a_{k+1}=b_1xa_k+b_2a_{k-1}\cdots+b_ka_1\\
-\end{equation}\]</span></p>
-<p>\begin{aligned} A(x)=&amp;(A(x)-^{k-2}_{i=0}a_ix<sup>i)b_1x</sup>1\ +&amp;(A(x)-<sup>{k-3}<em>{i=0}a_ix<sup>i)b_2x</sup>2\ +&amp;\ +&amp;A(x)b_kx<sup>k+</sup>{k-1}</em>{i=0}a_ix</sup>i \end{aligned} $$ 将<span class="math inline">\(\tilde A(x)\)</span>移到一边，就有</p>
+\end{equation}
+\]</span> <span class="math display">\[
+\begin{aligned}
+\tilde A(x)=&amp;(\tilde A(x)-\sum^{k-2}_{i=0}a_ix^i)b_1x^1\\
++&amp;(\tilde A(x)-\sum^{k-3}_{i=0}a_ix^i)b_2x^2\\
++&amp;\cdots\\
++&amp;\tilde A(x)b_kx^k+\sum^{k-1}_{i=0}a_ix^i
+\end{aligned}
+\]</span></p>
+<p>将<span class="math inline">\(\tilde A(x)\)</span>移到一边，就有</p>
 <p><span class="math display">\[
 \tilde A(x)(1-\sum^{k}_{i=1}b_ix^i)=\sum^{k-1}_{i=0}a_i(1-\sum_{j=1}^{k-i-1}b_jx^j)
 \]</span> 得 <span class="math display">\[
@@ -948,7 +958,7 @@ g_n=\sum^n_{i=0}b_{n,i}f_i
         
 <div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
         <!--SCRIPTS-->
-<script src="/assets/js/script-peofhqjkzcghmndknakluequy1y6owxdwpaqyju9ntl9zxnk7rdolb3rjjoj.min.js"></script>
+<script src="/assets/js/script-yhuo2grt8r7qkqumzgjoglkfbicl1thukjgmla6jopu56zpcowfedi5zjcor.min.js"></script>
 <!--SCRIPTS END-->
 
     

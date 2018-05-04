@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>https://jackpison.tk/Mathematics/generating-function/</loc>
+        <lastmod>2018-05-04T01:51:21.379Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>https://jackpison.tk/Solution/NKOJ4487-sets-count/</loc>
         <lastmod>2018-05-04T01:11:50.048Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -31,14 +39,6 @@
     </url>
 
     <url>
-        <loc>https://jackpison.tk/uncategorized/hi-hexo/</loc>
-        <lastmod>2018-05-04T01:11:50.048Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>https://jackpison.tk/Mathematics/polynomial-approximation/</loc>
         <lastmod>2018-05-04T01:11:50.048Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -55,7 +55,7 @@
     </url>
 
     <url>
-        <loc>https://jackpison.tk/Mathematics/generating-function/</loc>
+        <loc>https://jackpison.tk/uncategorized/hi-hexo/</loc>
         <lastmod>2018-05-04T01:11:50.048Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
