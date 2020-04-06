@@ -45,7 +45,7 @@
     "mime-db": "^1.27.0",
     "mime-types": "^2.1.15",
     "minimatch": "^3.0.4",
-    "minimist": "0.0.8",
+    "minimist": "1.2.3",
     "mkdirp": "^0.5.1",
     "node-pre-gyp": "^0.10.0",
     "number-is-nan": "^1.0.1",
