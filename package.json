@@ -38,7 +38,7 @@
     "inflight": "^1.0.6",
     "inherits": "^2.0.3",
     "is-fullwidth-code-point": "^1.0.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "katex": "^0.9.0-alpha2",
     "live2d-widget-model-shizuku": "^1.0.5",
     "marked": "^0.3.19",
